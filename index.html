@@ -19,8 +19,16 @@
         const inputBox = document.getElementById('input-text');
         const image = document.getElementById('image');
         const generateQRCode = async()=>{
-            let api = `http://api.qrserver.com/v1/create-qr-code/?data=${inputBox.value}&size=100x100`;
-            image.src = api;
+            if(inputBox.value.length > 0){
+                let api = `http://api.qrserver.com/v1/create-qr-code/?data=${inputBox.value}&size=100x100`;
+                image.src = api;
+                inputBox.value = "";
+            }else{
+                inputBox.classList.add('error');
+                setTimeout(()=>{
+                    inputBox.classList.remove('error');
+                },1500);
+            }
         };
         document.querySelector('.container').addEventListener("keydown",(e)=>{
             if(e.key == "Enter"){
